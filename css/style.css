@@ -25,15 +25,12 @@ body {
 
 .bg {
   position       : fixed;
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(30px);
   top            : 0;
   left           : 0;
   width          : 100%;
   height         : 100%;
-}
-.bg div {
-  width: 100%;
-  height: 100%;
-  backdrop-filter: blur(30px);
 }
 
 h1,
