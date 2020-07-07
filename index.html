@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <div id="app">
+    <div class="bg"></div>
+    <div class="loading" v-if="isLoading"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>
+    <div class="pt-4 info-box">
+      <div v-if="isError.status">
+        <h2><i class="fas fa-exclamation-triangle"></i> {{ isError.msg }}</h2>
+      </div>
+      <div v-else>
+        <h1><span>空氣品質指標</span><small v-if="data.length !== 0">{{ data[0].PublishTime }} 更新</small></h1>
+        <!-- 選擇城市 -->
+        <div class="sel-arrow">
+          <select v-model="filter" @change="areaAddActive">
+            <option disabled value="">--- 請選擇城市 ---</option>
+            <option value="all">全部</option>
+            <option v-for="(item, index) in location" :key="index" :value="item">{{ item }}</option>
+          </select>
+        </div>
+        <!-- 收藏城市 -->
+        <div class="stared-box" v-if="stared.length !== 0">
+          <h2>收藏城市</h2>
+          <div class="d-flex flex-wrap box-wraper">
+            <card v-for="item in newStared" @itemname="removeStar(item.SiteId)" :key="item.SiteId"
+              :card-item="item">
+              <i class="fas fa-star" slot="i"></i>
+            </card>
+          </div>
+        </div>
+
+        <!-- 顯示城市 -->
+        <div class="d-flex flex-wrap box-wraper">
+          <card v-for="item in computedData" @itemname="addStar(item.SiteId)" :key="item.SiteId" :card-item="item" v-if="item.County === filter || filter === '' || filter === 'all'"></card>
+        </div>
+      </div>
+    </div>
+    <div class="taiwan-map" ref="map">
+      <div class="wave"><img src="img/waves-01.svg"></div>
+      <div class="wave"><img src="img/waves-01.svg"></div>
+      <div class="wave"><img src="img/waves-01.svg"></div>
+      <div id="map">
+        <svg id="svg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"></svg>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.0.8/js/regular.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js"></script>
+  <script src="//d3js.org/d3.v3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="js/all.js"></script>
+</body>
+
+</html>
