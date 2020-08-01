@@ -9,7 +9,7 @@
 
 ## Plugin
 * [Bootstrap 4](https://getbootstrap.com/)
-* [Font Awesomefontawesome](https://fontawesome.com/)
+* [Font Awesome](https://fontawesome.com/)
 * [D3.js 3](https://d3js.org/)
 
 ## Introduce
